@@ -9,8 +9,6 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import cors from "cors";
 
-
-
 // configure env
 dotenv.config();
 
@@ -21,10 +19,13 @@ connectDB();
 const app = express();
 
 // Middelwares
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:8080", "https://ecommerceapp-l4g2.onrender.com"],
+  })
+);
 app.use(express.json());
 app.use(morgan("dev"));
-
 
 //routes
 app.use("/api/v1/auth", authRoutes);
@@ -33,7 +34,6 @@ app.use("/api/v1/product", productRoutes);
 app.use("/api/v1/users", userRoutes);
 
 //Rest api
-
 
 app.get("/", (req, res) => {
   res.send("<h1> eCommerce App</h1>");
